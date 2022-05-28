@@ -30,8 +30,8 @@
         mode: 0644
     - name: Copy the javascript files to destination folder.
         copy: >
-        src: /tmp/jsclock/index.js
-        dest: /var/www/html/index.js
+        src: /tmp/jsclock/script.js
+        dest: /var/www/html/script.js
         owner: root
         group: root
         mode: 0644
