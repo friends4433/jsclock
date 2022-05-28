@@ -13,7 +13,7 @@
         update_cache: yes
     - name: Copy website files to the server's document root
       copy:
-        src: /tmp/ansibletemplatetesting/index.html
+        src: /tmp/jsclock/index.html
         dest: /var/www/html/index.nginx-debian.html
         mode: preserve
     - name: Run Apt Update
@@ -23,14 +23,14 @@
         mode: 0644
    - name: Copy the style files to destination folder.
         copy: >
-        src: /tmp/ansibletemplatetesting/style.css
+        src: /tmp/jsclock/style.css
         dest: /var/www/html/style.css
         owner: root
         group: root
         mode: 0644
     - name: Copy the javascript files to destination folder.
         copy: >
-        src: /tmp/ansibletemplatetesting/index.js
+        src: /tmp/jsclock/index.js
         dest: /var/www/html/index.js
         owner: root
         group: root
