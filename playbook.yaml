@@ -1,40 +1,39 @@
 ---
-  - name: Play for Install Nginx on WebServers
-    hosts: localhost
-    gather_facts: yes
-    vars:
-      custom_heading: "Welcome To First Project"
-      todays_date: "{{ ansible_facts['date_time']['date'] }}"
-      host_name: "{{ ansible_facts['hostname'] }}"
-      fqdn_name: "{{ ansible_facts['fqdn'] }}"
-      ip_address: "{{ ansible_facts['eth0']['ipv4']['address'] }}"
-    tasks:
-      - name : Run Apt Update
-        shell: apt update && apt install -y python-apt
-      - name: Install Nginx Server
-         apt: >
-           name=nginx
-           state=present
-      - name : Copy the File to Index folder
-        template: >
-            src=/tmp/googlecloud-autoscaling/Branch-2/index.html
-            dest=/var/www/html/index.nginx-debian.html
-            owner=root
-            group=root
-            mode=0644    
-      - name: Copy the style files to destination folder.
-         copy: >
-            src=/tmp/googlecloud-autoscaling/Branch-2/style.css
-            dest=/var/www/html/style.css
-            owner=root
-            group=root
-            mode=0644
-      - name: Copy the javascript files to destination folder.
-         copy: >
-            src=/tmp/googlecloud-autoscaling/Branch-2/script.js
-            dest=/var/www/html/script.js
-            owner=root
-            group=root
-            mode=0644
-       - name: restart nginx
-         command: service nginx restart      
+- hosts: all
+  become: yes
+  vars:
+    server_name: "{{ ansible_default_ipv4.address }}"
+    document_root: /var/www
+    app_root: html_demo_site-main
+  tasks:
+    - name: Update apt cache and install Nginx
+      apt:
+        name: nginx
+        state: latest
+        update_cache: yes
+    - name: Copy website files to the server's document root
+      copy:
+        src: /tmp/ansibletemplatetesting/index.html
+        dest: /var/www/html/index.nginx-debian.html
+        mode: preserve
+    - name: Run Apt Update
+        shell: apt update && apt install -y python-apt    
+        owner: root
+        group: root
+        mode: 0644
+   - name: Copy the style files to destination folder.
+        copy: >
+        src: /tmp/ansibletemplatetesting/style.css
+        dest: /var/www/html/style.css
+        owner: root
+        group: root
+        mode: 0644
+    - name: Copy the javascript files to destination folder.
+        copy: >
+        src: /tmp/ansibletemplatetesting/index.js
+        dest: /var/www/html/index.js
+        owner: root
+        group: root
+        mode: 0644
+    - name: restart nginx
+        command: service nginx restart    
