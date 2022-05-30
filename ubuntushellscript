@@ -14,3 +14,10 @@ git clone https://github.com/friends4433/jsclock.git /myrepo
 #
 #####GIVE BELOW IN THE LAUNCH CONFIG USERDATA#####################################
 ansible-playbook /myrepo/playbook.yaml
+
+======================OR-OR-OR-OR=============================================
+
+cp /myrepo/index.html /var/www/html/index.nginx-debian.html
+cp /myrepo/style.css /var/www/html/style.css
+cp /myrepo/script.js /var/www/html/script.js
+cp /myrepo/imgs /var/www/html/imgs
